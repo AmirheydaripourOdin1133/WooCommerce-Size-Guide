@@ -1,0 +1,13 @@
+.ssbg-settings {direction:rtl;color:#292520}
+.ssbg-switch {display:flex;gap:10px;align-items:center;position:relative;cursor:pointer;font-weight:600;min-height:44px}
+.ssbg-switch input {position:absolute!important;opacity:0;width:42px;height:26px;margin:0!important;inset-inline-start:0}
+.ssbg-switch-track {display:block;position:relative;width:42px;height:26px;border-radius:30px;background:#757575;flex:none;transition:background .2s}
+.ssbg-switch-track::after {content:'';position:absolute;top:3px;right:3px;width:20px;height:20px;background:white;border-radius:50%;transition:transform .2s}
+.ssbg-switch input:checked + .ssbg-switch-track {background:#a94e00}
+.ssbg-switch input:checked + .ssbg-switch-track::after {transform:translateX(-16px)}
+.ssbg-switch input:focus-visible + .ssbg-switch-track {outline:2px solid #2271b1;outline-offset:3px}
+.ssbg-settings p {line-height:1.9;color:#61584f}
+.ssbg-state-on {display:none;color:#236a35;font-weight:700}
+.ssbg-settings:has(input:checked) .ssbg-state-on {display:inline}
+.ssbg-settings:has(input:checked) .ssbg-state-off {display:none}
+@media(prefers-reduced-motion:reduce){.ssbg-switch-track,.ssbg-switch-track::after{transition:none}}

@@ -1,0 +1,215 @@
+.ssbg {
+  --guide-text: #271f16;
+  --guide-muted: #5e554a;
+  --guide-line: #e6e0d6;
+  --guide-gutter: clamp(12px, 2.2vw, 24px);
+  --guide-ease: cubic-bezier(.32, 0, .18, 1);
+  direction: rtl;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  padding-block: 2px;
+  color: var(--guide-text);
+  text-align: start;
+  font-family: inherit;
+  overflow-anchor: none;
+}
+
+.ssbg, .ssbg *, .ssbg *::before, .ssbg *::after { box-sizing: border-box; }
+
+.ssbg .ssbg-item {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--guide-line);
+  border-radius: 16px;
+  background: #fff;
+  transition: border-color 180ms ease;
+}
+.ssbg .ssbg-item[open] { border-color: #d6bc96; }
+.ssbg .ssbg-item > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  list-style: none;
+  min-height: 64px;
+  margin: 0;
+  padding: 13px var(--guide-gutter);
+  background-color: #fff;
+  color: var(--guide-text);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.75;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 180ms ease;
+}
+.ssbg summary::-webkit-details-marker { display: none; }
+.ssbg summary::marker { content: ''; }
+.ssbg .ssbg-item[open] > summary { background-color: #fcf8f1; }
+.ssbg .ssbg-heading { display: flex; align-items: center; gap: 12px; }
+.ssbg .ssbg-icon {
+  display: grid;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 11px;
+  background: #f7f3ed;
+  color: #71563b;
+  transition: color 180ms, background-color 180ms;
+}
+.ssbg [open] > summary .ssbg-icon { background-color: #ffebcc; color: #884309; }
+.ssbg .ssbg-chevron {
+  display: grid;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  color: #7b6249;
+  transition: background-color 180ms;
+}
+.ssbg .ssbg-chevron::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: solid currentColor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 320ms var(--guide-ease);
+}
+.ssbg [open] > summary .ssbg-chevron::after { transform: translateY(2px) rotate(225deg); }
+
+/* Clip the inner grid item at zero height. Spacing on its children lets it collapse fully. */
+.ssbg .ssbg-content {
+  display: flow-root;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--guide-muted);
+  font-size: 14px;
+  line-height: 2;
+}
+.ssbg .ssbg-content > p {
+  margin: 14px var(--guide-gutter) 0;
+  color: inherit;
+  font: inherit;
+}
+.ssbg .ssbg-content > :last-child { margin-block-end: var(--guide-gutter); }
+.ssbg .ssbg-content strong { color: var(--guide-text); font-weight: 750; }
+@supports selector(details::details-content) and (transition-behavior: allow-discrete) {
+  .ssbg .ssbg-item::details-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 380ms var(--guide-ease),
+                content-visibility 380ms allow-discrete;
+  }
+  .ssbg .ssbg-item[open]::details-content { grid-template-rows: 1fr; }
+}
+
+.ssbg .ssbg-table-wrap {
+  margin: 16px var(--guide-gutter) 0;
+  border: 1px solid var(--guide-line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+.ssbg .ssbg-table-wrap > table {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  background: #fff;
+  font: inherit;
+  line-height: 1.6;
+}
+.ssbg .ssbg-table-wrap table > :is(thead, tbody) > tr > :is(th, td) {
+  padding: 10px 6px;
+  border: 0;
+  background: transparent;
+  color: var(--guide-text);
+  font: inherit;
+  text-align: center;
+  vertical-align: middle;
+}
+.ssbg .ssbg-table-wrap table > thead > tr > th {
+  border-block-end: 1px solid #e1d3bd;
+  background: #f4efe6;
+  color: #56432d;
+  font-weight: 700;
+  font-size: 13px;
+}
+.ssbg .ssbg-table-wrap thead th:first-child { width: 19%; }
+.ssbg .ssbg-table-wrap table > tbody > tr + tr > :is(th, td) {
+  border-block-start: 1px solid #eeeae3;
+}
+.ssbg .ssbg-table-wrap table > tbody > tr {
+  background: #fff;
+  transition: background-color 160ms ease;
+}
+.ssbg .ssbg-table-wrap table > tbody > tr:nth-child(even) { background: #faf9f6; }
+.ssbg tbody bdi { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ssbg .ssbg-size bdi {
+  display: inline-block;
+  min-width: 2.8em;
+  padding: 2px 4px;
+  border-radius: 6px;
+  background: #f3eee6;
+  color: #64492c;
+  font-size: .9em;
+  font-weight: 750;
+}
+.ssbg :is(summary, .ssbg-table-wrap):focus-visible { outline: 2px solid #9b520d; outline-offset: -4px; }
+.ssbg .ssbg-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ssbg .ssbg-item:has(> summary:hover) { border-color: #c9ad86; }
+  .ssbg .ssbg-item > summary:hover { background-color: #fbf3e7; }
+  .ssbg summary:hover .ssbg-chevron { background-color: #f4e5d1; }
+  .ssbg .ssbg-table-wrap table > tbody > tr:hover { background: #fff0d9; }
+}
+.ssbg-tab-panel { min-width: 0; width: 100%; }
+[data-ssbg-tab] { white-space: normal; }
+@media (max-width: 767px) {
+  /* The single-product template nests four padded boxes around the guide. */
+  .elementor-location-single [data-id="1c5c2a7"]:has([data-ssbg-tab]) { padding-inline: 8px; }
+  .elementor-location-single [data-id="3d04054"]:has([data-ssbg-tab]) { min-width: 0; padding-inline: 4px; }
+  .elementor-location-single [data-element_type="e-tabs-content-area"]:has(> .ssbg-tab-panel) { padding-inline: 0; }
+  .elementor-location-single [data-element_type="e-tabs-content-area"] > .ssbg-tab-panel {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .ssbg { --guide-gutter: 10px; gap: 9px; }
+  .ssbg .ssbg-item { border-radius: 12px; }
+  .ssbg .ssbg-item > summary { min-height: 56px; padding-block: 10px; font-size: 14px; }
+  .ssbg .ssbg-icon { width: 32px; height: 32px; }
+  .ssbg .ssbg-heading { gap: 8px; }
+  .ssbg .ssbg-content { font-size: 13px; }
+  .ssbg .ssbg-table-wrap table > :is(thead, tbody) > tr > :is(th, td) { padding: 9px 3px; }
+  .ssbg .ssbg-table-wrap table > thead > tr > th { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ssbg *, .ssbg *::after { transition-duration: 0s !important; }
+  .ssbg .ssbg-item::details-content { transition: none; }
+}
+
