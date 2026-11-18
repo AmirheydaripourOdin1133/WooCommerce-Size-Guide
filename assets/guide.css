@@ -189,7 +189,12 @@
 .ssbg-tab-panel { min-width: 0; width: 100%; }
 [data-ssbg-tab] { white-space: normal; }
 @media (max-width: 767px) {
-  /* The single-product template nests four padded boxes around the guide. */
+  /*
+   * Site-specific: the single-product template nests four padded boxes around
+   * the guide. These rules only ever match when the guide is present
+   * (:has([data-ssbg-tab])), so they stay inert on every other page.
+   * If the template is rebuilt with new container ids, update the two ids below.
+   */
   .elementor-location-single [data-id="1c5c2a7"]:has([data-ssbg-tab]) { padding-inline: 8px; }
   .elementor-location-single [data-id="3d04054"]:has([data-ssbg-tab]) { min-width: 0; padding-inline: 4px; }
   .elementor-location-single [data-element_type="e-tabs-content-area"]:has(> .ssbg-tab-panel) { padding-inline: 0; }
